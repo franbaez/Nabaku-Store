@@ -1,14 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
 body{
     background: #D3CCE3;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to top, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to top, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+ }
 
-}
+
 .nav-item{
     margin-left: 20%;
     box-shadow: 5px 5px darkslateblue;
+    border: 3px groove black;
 }
 
 .nav-item a{
     font-size: 24px;
 }
+h1{
+    text-align: center;
+    margin: 2%;
+}
+#producto-contenedor {
+    display: grid;
+    margin: 90px auto;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+} 
+
+.card .card-image .card-title {
+    color: dodgerblue;
+    position: unset;
+}  
+
+.card{
+    margin: 40px;
+    box-shadow: 5px 5px 10px darkslateblue;
+    border: 5px groove red;}
+
+/* Modal */
+.modal-container {
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed; 
+    background-color: transparent;
+    width: 100%;
+    height: 100vh;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    border-radius: 10px ;
+    z-index: 100;
+  } 
+  
+  /* hacer visible el modal  */
+  .modal-active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 5;
+  }
+  
+  .modal-carrito{
+    width: 30rem;
+    height: 20rem;
+    background-color: rgb(209, 207, 223);
+  }
+  
+  
+  .productoEnCarrito {
+    background-color: azure;
+    border: 2px solid black;
+    margin: 5px 0;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .boton-eliminar {
+    background-color: white;
+    color: lightblue;
+    border: none;
+    font-size: 20px;
+  }
