@@ -17,7 +17,7 @@ const carritoIndex = (productoId)=>{
         div.innerHTML = `<p>${producto.nombre}</p>
                         <p>Precio: ${producto.precio}</p> 
                         <p id="cantidad${producto.id}">Cantidad: ${producto.cantidad}</p>
-                        <button id="eliminar${producto.id}" class="boton-eliminar" ><i class="fa-solid fa-trash-can"></i></button>`;
+                        <button id="eliminar${producto.id}" class="boton-eliminar" >Eliminar<i class="fa-solid fa-trash-can"></i></button>`;
         contenedorCarrito.appendChild(div)
     }
 

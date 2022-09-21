@@ -73,3 +73,7 @@ const productos = [
         img: 'assets/ousama-ranking-01.webp'
     },
 ]
+
+ localStorage.setItem("Mangas", JSON.stringify(productos));
+ let mangas = localStorage.getItem("Mangas");
+ console.log(JSON.parse(mangas));
