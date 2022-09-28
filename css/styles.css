@@ -6,14 +6,16 @@
 
 
 body{
-    background: #D3CCE3;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to top, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to top, #E9E4F0, #D3CCE3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #E60C31;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #E31B22, #E60C31);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #E31B22, #E60C31); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
  }
 
-
+.navbar{
+  background-color: #7C7C7C;
+}
 .nav-item{
-    margin-left: 20%;
+    justify-content: center;
     box-shadow: 5px 5px darkslateblue;
     border: 3px groove black;
 }
@@ -32,7 +34,9 @@ h1{
     justify-content: space-evenly;
     flex-wrap: wrap;
 } 
-
+.card-body{
+  background-color: #8FCEE9;
+}
 .card .card-image .card-title {
     color: dodgerblue;
     position: unset;
@@ -41,7 +45,7 @@ h1{
 .card{
     margin: 40px;
     box-shadow: 5px 5px 10px darkslateblue;
-    border: 5px groove red;}
+    border: 5px groove #828282;}
 
 
 .modal-container {
@@ -69,6 +73,8 @@ h1{
     width: 30rem;
     height: 20rem;
     background-color: rgb(209, 207, 223);
+    margin-bottom: 25%;
+    border-radius: 1em;
   }
   
   
@@ -77,8 +83,7 @@ h1{
     border: 2px solid black;
     margin: 5px 0;
     padding: 5px 10px;
-    display: flex;
-    justify-content: space-between;
+    display: inline-block;
   }
   
   .boton-eliminar{
@@ -86,3 +91,6 @@ h1{
     border: 2px solid black;
     font-size: 15px;
   }
+
+  
+  
