@@ -1,4 +1,4 @@
-const productos = [ 
+/*const productos = [ 
     {
         id: 1,
         nombre: "One Piece",
@@ -76,4 +76,4 @@ const productos = [
 
  localStorage.setItem("Mangas", JSON.stringify(productos));
  let mangas = localStorage.getItem("Mangas");
- console.log(JSON.parse(mangas));
+ console.log(JSON.parse(mangas));*/
