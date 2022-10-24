@@ -1,128 +1,111 @@
-let carrito = []
+let carrito = [];
+const contenedorCarrito = document.getElementById('carrito-contenedor');
+const contenedorProductos = document.getElementById('producto-contenedor');
 
-const contenedorCarrito = document.getElementById('carrito-contenedor')
-const contenedorProductos = document.getElementById("producto-contenedor")
+loadEvents();
 
-//Obtengo los productos mediante fetch con un archivo JSON
-const traerDatos = async () =>{
-const respuesta = await fetch('data.json');
-const data = await respuesta.json();
-    
-      //Imprimo en pantalla cada producto
-      data.forEach(producto => {
-        const div = document.createElement("div");
-            div.classList.add("card")
-            div.innerHTML += `<div class="card-imagen" style="width: 35rem;">
-                                <img src="${producto.img}" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title text-light">${producto.nombre}</h5>
-                                    <p class="card-text text-light">Genero:  ${producto.genero}</p>
-                                    <p class="card-text text-light">Precio:$ ${producto.precio}</p>
-                                    <p class="card-text text-light">Tomo: ${producto.numTomo}</p>
-    
-                                    <button class="btn btn-danger" id=boton${producto.id}>Comprar</button>
-                                </div>
-                            </div>`
-    
-            contenedorProductos.appendChild(div)
-            
-            const boton = document.getElementById( `boton${producto.id}` )
-    
-            boton.addEventListener('click', ()=> {
-                
-                //Agrego los productos al carrito y los muestro
-                const agregarProducto = (dataId) => {
-                    let item = data.find((data) => data.id === dataId)
-                    carrito.push(item)
-                    
-                    const mostrarEnCarrito = () =>{
-                        contenedorCarrito.innerHTML = ""
-                      
-                        carrito.forEach((item)=>{
-                            const div = document.createElement('div')
-                            div.className = ('productoEncarrito')
-                           
-                             div.innerHTML = `<p>${producto.nombre}</p>
-                                <p>Precio: ${producto.precio}</p> 
-                                <p id="tomo${producto.id}">Tomo: ${producto.numTomo}</p>
-                                <button  id=boton2${producto.id} class="boton-eliminar" >Eliminar<i class="fa-solid fa-trash-can"></i></button>`;
-                    
-                                contenedorCarrito.appendChild(div)
-                               
-                                //Boton para eliminar items del carrito
-                                const boton2 = document.getElementById( `boton2${producto.id}` )
+function loadEvents() {
+	// Obtengo los productos mediante fetch con un archivo JSON
+	document.addEventListener('DOMContentLoaded', (e) => {
+		fetch('data.json')
+			.then((object) => object.json())
+			.then((data) => mostrarProductos(data));
+	});
 
-                                boton2.addEventListener('click', () =>{
-                                    const eliminarItem = (dataId) =>{
-                                        const item = carrito.find((data) => data.id === dataId);
-                                        const indice =carrito.indexOf(item);
-                                        carrito.splice(indice, 1);
-                                        mostrarEnCarrito();
-                                        mensajeCarrito();
-                                    }
-                                    eliminarItem()
-                                })
-                        })
-                    }
-                    mostrarEnCarrito()                   
-                 }  
-                    agregarProducto();             
-                    
-                    
+	contenedorProductos.addEventListener('click', agregarProducto);
 
-                       Swal.fire({
-                        background: 'rgb(209, 207, 223)',
-                        title: 'Vamos!',
-                        text: 'Se agregara ' + producto.nombre + ' al carrito.',
-                        imageUrl: producto.img,
-                        imageWidth: 300,
-                        imageHeight: 300,
-                        imageAlt: 'Portada del tomo ' + producto.numTomo + ' de ' + producto.nombre,
-                  })
-                
-                  })
-    
-                } 
-            )
-     
-}
-traerDatos();
-
-
-
-//Funcion que agrega los productos comprados en un nuevo array llamado "carrito"
-/*const agregarProducto = (productoId) => {
-    let item = data.find((producto) => producto.id === productoId)
-    carrito.push(item)
-    mostrarEnCarrito()
-    
-}*/
-//Funcion que elimina los items del carrito que el usuario desee
-/*const eliminarItem = (dataId) => {
-    const item = carrito.find((data) => data.id === dataId)
-    const indice = carrito.indexOf(item)
-    carrito.splice(indice, 1)
-    mostrarEnCarrito()
-    mensajeCarrito()
+	contenedorCarrito.addEventListener('click', eliminarProducto);
 }
 
+function mostrarProductos(productos) {
+	productos.forEach((producto) => {
+		const div = document.createElement('div');
+		div.classList.add('card');
+		div.innerHTML += `<div class="card-imagen" style="width: 35rem;">
+							<img src="${producto.img}" class="card-img-top" alt="...">
+							<div class="card-body">
+								<h5 class="card-title text-light">${producto.nombre}</h5>
+								<p class="card-text text-light">Genero:  ${producto.genero}</p>
+								<p class="card-text text-light precio">Precio:$ ${producto.precio}</p>
+								<p class="card-text text-light tomo">Tomo: ${producto.numTomo}</p>
+								<button class="btn btn-danger agregar-carrito" id=boton${producto.id}>Comprar</button>
+							</div>
+		                  </div>`;
+
+		contenedorProductos.appendChild(div);
+	});
+}
+
+function agregarProducto(e) {
+	if (e.target.classList.contains('agregar-carrito')) {
+		const selectedProduct = e.target.parentElement.parentElement.parentElement;
+		readDataProduct(selectedProduct);
+		carrito.push(infoProduct(selectedProduct));
+		console.log(carrito);
+		
+		
+	const { imagen, nombre, tomo } = infoProduct(selectedProduct);
+		 infoProduct(selectedProduct);
 
 
 
-//Recorremos el array "carrito" y generamos los elementos HTML necesarios para mostrar los items que se agregaron al carrito
-/*const mostrarEnCarrito = () =>{
-    contenedorCarrito.innerHTML = ""
-  
-    carrito.forEach((item)=>{
-        const div = document.createElement('div')
-        div.className = ('productoEncarrito')
-       
-         div.innerHTML = `<p>${producto.nombre}</p>
-            <p>Precio: ${producto.precio}</p> 
-            <p id="tomo${producto.id}">Tomo: ${producto.numTomo}</p>
-            <button onclick = "eliminarItem(${producto.id})" class="boton-eliminar" >Eliminar<i class="fa-solid fa-trash-can"></i></button>`;
+		Swal.fire({
+			background: 'rgb(209, 207, 223)',
+			title: 'Vamos!',
+			text: 'Se agregara ' + nombre + ' al carrito.',
+			imageUrl: imagen,
+			imageWidth: 300,
+			imageHeight: 300,
+			imageAlt: 'Portada del tomo ' + tomo + ' de ' + nombre
+		});
+	}
+	
+}
 
-            contenedorCarrito.appendChild(div)
-            
-    })
-}*/
+function infoProduct(item) {
+	const product = {
+		imagen: item.querySelector('img').src,
+		nombre: item.querySelector('h5').textContent,
+		precio: Number(item.querySelector('.precio').innerText.replace('Precio:$ ', '')),
+		tomo: item.querySelector('.tomo').innerText,
+		id: item.querySelector('button').getAttribute('id'),
+		cantidad: 1,
+		total: 0
+	};
+	
+
+	product.total = product.precio * product.cantidad;
+	 
+	return product;
+	
+}
+	
+function readDataProduct(product) {
+	const div = document.createElement('div');
+
+	const { nombre, precio, tomo, id } = infoProduct(product);
+	div.className = 'productoEncarrito';
+	div.innerHTML = `<p>${nombre}</p>
+                    <p>Precio: ${precio}</p>
+                    <p id="tomo${id}">${tomo}</p>
+                    <button id="eliminar${id}" class="boton-eliminar" >Eliminar<i class="fa-solid fa-trash-can"></i></button>
+					`;
+	contenedorCarrito.appendChild(div);
+	
+	
+ }
+
+ function eliminarProducto(e) {
+	if (e.target.classList.contains('boton-eliminar')) {
+		e.preventDefault();
+		const productId = e.target.getAttribute('id');
+		
+		const item = carrito.find((product) => product.id === productId);
+		const indice = carrito.indexOf(item);
+		carrito.splice(indice, 1);
+		carrito = carrito.filter(product => product.id !== productId)
+        console.log(carrito);
+        
+
+	}
+}	
