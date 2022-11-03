@@ -40,8 +40,11 @@ function agregarProducto(e) {
 	if (e.target.classList.contains('agregar-carrito')) {
 		const selectedProduct = e.target.parentElement.parentElement.parentElement;
 		readDataProduct(selectedProduct);
-		carrito.push(infoProduct(selectedProduct));
-		console.log(carrito);
+		//carrito.push(infoProduct(selectedProduct));
+		localStorage.setItem("Mangas", JSON.stringify(infoProduct(selectedProduct)));
+		let manga = localStorage.getItem("Mangas")
+		carrito.push(JSON.parse(manga));
+		console.table(carrito);
 		
 		
 	const { imagen, nombre, tomo } = infoProduct(selectedProduct);
@@ -104,8 +107,8 @@ function readDataProduct(product) {
 		const indice = carrito.indexOf(item);
 		carrito.splice(indice, 1);
 		carrito = carrito.filter(product => product.id !== productId)
-        console.log(carrito);
-        
+        console.table(carrito);
+        localStorage.removeItem("Mangas")
 
 	}
 }	
